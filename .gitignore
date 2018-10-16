@@ -1,5 +1,4 @@
 node_modules
-server/node_modules
 dist
 .DS_Store
 
@@ -8,5 +7,3 @@ dist
 npm-debug.log
 package-lock.json
 .project
-allure-report/*
-allure-results/*
