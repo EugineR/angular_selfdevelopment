@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -20,7 +20,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -29,9 +30,10 @@ export class AuthComponent implements OnInit {
 
   login() {
     this.authService.authorize(this.loginForm.value)
-      .subscribe(() => {
-        this.router.navigate(['']);
-      }, () => {
+      .subscribe(res => {
+        this.router.navigate([this.route.snapshot.queryParams.returnUrl]);
+      }, err => {
+        console.log(err)
       });
   }
 }

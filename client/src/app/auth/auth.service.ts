@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   authorize(user: FormGroup) {
-    return this.http.post(this.baseURL + '/login', user);
+    return this.http.post(this.baseURL + '/login', user, { responseType: 'text' });
   }
 
   isAuthorized() {
