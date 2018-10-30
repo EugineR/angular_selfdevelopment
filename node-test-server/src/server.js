@@ -4,9 +4,11 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const bodyParser = require('body-parser');
 const authRoutes = require('./auth-routes');
+const cors = require('./cors');
 
 const PORT = process.env.PORT || 3000;
 
+server.use(cors);
 server.use(middlewares);
 
 server.use(bodyParser.json());

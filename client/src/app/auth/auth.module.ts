@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   declarations: [AuthComponent],
-  providers: [AuthService]
+  providers: [
+    AuthService
+  ]
 })
 export class AuthModule {}

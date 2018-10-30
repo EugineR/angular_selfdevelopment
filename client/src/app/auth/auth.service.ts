@@ -11,10 +11,15 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   authorize(user: FormGroup) {
-    return this.http.post(this.baseURL + '/login', user, { responseType: 'text' });
+    return this.http.post(this.baseURL + '/login', user, { responseType: 'text', observe: 'response'});
   }
 
   isAuthorized() {
-    return true;
+    return this.http.get(this.baseURL + '/', { responseType: 'text', observe: 'response' })
+      .subscribe(res => {
+        debugger
+      }, error => {
+        debugger
+      });
   }
 }
