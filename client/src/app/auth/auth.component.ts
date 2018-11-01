@@ -31,7 +31,7 @@ export class AuthComponent implements OnInit {
   }
 
   login() {
-    this.authService.authorize(this.loginForm.value)
+    this.authService.login(this.loginForm.value)
       .subscribe(res => {
         this.tokenService.setToken(res.headers.get('session-token'));
         this.router.navigate([this.route.snapshot.queryParams.returnUrl]);
