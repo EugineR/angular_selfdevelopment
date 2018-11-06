@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthGuard } from './auth/auth.guard';
-import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
@@ -14,8 +13,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AuthModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [
     AuthGuard,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +20,14 @@ export class AuthService {
   login(user: FormGroup): Observable<HttpResponse<any>> {
     return this.http.post(`${ this.baseURL }/login`, user, { responseType: 'text', observe: 'response' })
       .pipe(
-        map(res => {
-          this._isAuthorized = true;
-          return res;
-        })
+        tap(() => this._isAuthorized = true)
       );
   }
 
   logout(user: FormGroup): Observable<HttpResponse<any>> {
     return this.http.post(`${ this.baseURL }/logout`, user, { responseType: 'text', observe: 'response' })
       .pipe(
-        map(res => {
-          this._isAuthorized = false;
-          return res;
-        })
+        tap(() => this._isAuthorized = false)
       );
   }
 }
