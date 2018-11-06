@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenService } from '../token/token.service';
 
 @Component({
   selector: 'app-auth',
@@ -22,8 +21,7 @@ export class AuthComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
-    private tokenService: TokenService
+    private route: ActivatedRoute
   ) {
   }
 
@@ -32,9 +30,8 @@ export class AuthComponent implements OnInit {
 
   login() {
     this.authService.login(this.loginForm.value)
-      .subscribe(res => {
-        this.tokenService.setToken(res.headers.get('session-token'));
-        this.router.navigate([this.route.snapshot.queryParams.returnUrl]);
+      .subscribe(() => {
+        this.router.navigate([this.route.snapshot.queryParams.returnUrl || '']);
       }, err => {
         console.log(err)
       });

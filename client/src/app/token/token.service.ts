@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { TOKEN_NAME } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +7,15 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   getToken(): string {
-    return localStorage.getItem('session-token') || '';
+    return localStorage.getItem(TOKEN_NAME) || '';
   }
 
   setToken(token: string): void {
-    localStorage.setItem('session-token', token);
+    localStorage.setItem(TOKEN_NAME, token);
   }
+
+  removeToken(): void {
+    localStorage.removeItem(TOKEN_NAME);
+  }
+
 }

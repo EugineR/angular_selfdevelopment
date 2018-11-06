@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from '../token/token.service';
-import { map } from 'rxjs/operators';
+import { TOKEN_NAME } from '../constants';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const cloneRequest = req.clone({
-      headers: req.headers.set('session-token', this.tokenService.getToken())
+      headers: req.headers.set(TOKEN_NAME, this.tokenService.getToken())
     });
 
     return next.handle(cloneRequest)
