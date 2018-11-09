@@ -67,7 +67,6 @@ function logout(req, res, next) {
         return;
     }
 
-    console.log(authorizedUsers[login]);
     delete authorizedUsers[login];
     res.sendStatus(200);
 }
