@@ -50,11 +50,13 @@ function login(req, res, next) {
         res.sendStatus(400);
         return;
     }
+    const responseUser = {...users.find(user => user.login === login)};
+    delete responseUser.password;
 
     const newSessionToken = uuidV1();
     authorizedUsers[login] = newSessionToken;
     res.set(sessionTokenName, newSessionToken);
-    res.sendStatus(200);
+    res.status(200).json(responseUser);
 }
 function logout(req, res, next) {
     const login = req.body.login;
@@ -65,6 +67,7 @@ function logout(req, res, next) {
         return;
     }
 
+    console.log(authorizedUsers[login]);
     delete authorizedUsers[login];
     res.sendStatus(200);
 }

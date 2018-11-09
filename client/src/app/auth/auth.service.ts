@@ -22,7 +22,7 @@ export class AuthService {
 
   login(user: FormGroup) {
     return this.requestService.post('/login',
-      user,{ responseType: 'text', observe: 'response' })
+      user,{ observe: 'response' })
       .pipe(
         tap((res: HttpResponse<any>) => {
           this.tokenService.setToken(res.headers.get(TOKEN_NAME));
