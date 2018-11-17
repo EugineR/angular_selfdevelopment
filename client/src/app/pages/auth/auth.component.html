@@ -1,0 +1,15 @@
+<div class="form-container">
+  <form [formGroup]="loginForm" (submit)="login()" class="login-form">
+    <div class="input-container">
+      <label for="login">Login</label>
+      <input formControlName="login" name="login" id="login" type="text" placeholder="Enter login here">
+    </div>
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input formControlName="password" name="password" id="password" type="password" placeholder="Enter password here">
+    </div>
+    <div class="login-container">
+      <button class="login-btn">Log in</button>
+    </div>
+  </form>
+</div>
