@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'Services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,31 +9,40 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  public loginForm: FormGroup = this.formBuilder.group({
-    'login': ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.pattern('^[a-zA-Z]+$')]],
-    'password': ['', [Validators.required]]
-  });
+  public loginControl: FormControl;
+  public passwordControl: FormControl;
+  public loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
+    this.initLoginForm();
   }
 
-  login() {
+  public login() {
     this.authService.login(this.loginForm.value)
       .subscribe(() => {
         this.router.navigate([this.route.snapshot.queryParams.returnUrl || '']);
       }, err => {
         console.log(err);
       });
+  }
+
+  private initLoginForm() {
+    this.loginControl = new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.pattern('^[a-zA-Z]+$')
+    ]);
+    this.passwordControl = new FormControl('', [Validators.required]);
+    this.loginForm = this.formBuilder.group({
+      login: this.loginControl,
+      password: this.passwordControl
+    });
   }
 }
