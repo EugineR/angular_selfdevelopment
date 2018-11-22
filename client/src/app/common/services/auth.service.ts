@@ -3,43 +3,40 @@ import { FormGroup } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
-import { TokenService } from './token.service';
+import { StorageService } from './storage.service';
 import { TOKEN_NAME } from 'Constants/index';
 import { RequestService } from './request-service';
-import { IUser } from 'Interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: IUser;
-
-  constructor(private requestService: RequestService, private tokenService: TokenService) {}
+  constructor(private requestService: RequestService, private storageService: StorageService) {}
 
   public login(user: FormGroup) {
     return this.requestService.post('/login',
       user, { observe: 'response' })
       .pipe(
         tap(  (res: HttpResponse<any>) => {
-          this.user = res.body;
           const sessionToken = res.headers.get(TOKEN_NAME);
-          this.tokenService.setToken(sessionToken);
+
+          this.storageService.setCurrentUser(res.body);
+          this.storageService.setSessionToken(sessionToken);
         })
       );
   }
 
   public logout() {
+    const user = this.storageService.getCurrentUser();
+
     return this.requestService.post('/logout',
-      { ...this.user },
+      { ...user },
       { responseType: 'text', observe: 'response' })
       .pipe(
         tap(() => {
-          this.tokenService.removeToken();
+          this.storageService.removeSessionToken();
+          this.storageService.removeCurrentUser();
         })
       );
-  }
-
-  public getCurrentUser() {
-    return { ...this.user };
   }
 }
