@@ -6,6 +6,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './common/interceptors/auth.interceptor';
 
+const HTTP_INTECEPTOR = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true
+};
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,12 +21,7 @@ import { AuthInterceptor } from './common/interceptors/auth.interceptor';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }],
+  providers: [HTTP_INTECEPTOR],
   bootstrap: [AppComponent]
 })
 export class AppModule {
