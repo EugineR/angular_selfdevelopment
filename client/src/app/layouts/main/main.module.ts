@@ -8,21 +8,29 @@ import { ProductListComponent } from 'app/common/components/product-list/product
 import { ProductsService } from 'app/common/services/products.service';
 import { ProductDetailsComponent } from 'app/common/components/product-details/product-details.component';
 import { FiltersComponent } from 'app/common/components/filters/filters.component';
+import { CustomDropdownComponent } from 'Components/custom-dropdown/custom-dropdown.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CategoryService } from 'Services/category.service';
+import { CustomRadioComponent } from 'Components/custom-radio/custom-radio.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [
     MainComponent,
     HeaderComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    FiltersComponent
+    FiltersComponent,
+    CustomDropdownComponent,
+    CustomRadioComponent
   ],
   providers: [
-    ProductsService
+    ProductsService,
+    CategoryService
   ]
 })
 export class MainModule {

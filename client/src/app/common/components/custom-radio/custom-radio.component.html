@@ -1,0 +1,9 @@
+<div class="radio-picker">
+  <div *ngFor="let option of settings.options" class="input-container">
+    <input type="radio"
+           name="input"
+           [id]="option.id"
+           (change)="updateSelectedOption(option)">
+    <label [for]="option.id">{{ option.title }}</label>
+  </div>
+</div>

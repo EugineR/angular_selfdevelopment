@@ -1,3 +1,39 @@
-<p>
-  filters works!
-</p>
+<form [formGroup]="filterGroup" class="filters-container">
+  <div class="expander" (click)="toogleOpen()">
+    <i class="material-icons">{{ isFilterExpanded ? 'arrow_drop_up' : 'arrow_drop_down' }}</i>
+  </div>
+  <div *ngIf="isFilterExpanded" class="filters-content">
+    <div class="availability-picker">
+      <label for="availability">Availability only</label>
+      <input type="checkbox" id="availability" formControlName="availability">
+    </div>
+
+    <div class="category-picker">
+      <app-custom-dropdown
+        formControlName="category"
+        [settings]="mapCategoriesToDropdownSettings()"></app-custom-dropdown>
+    </div>
+
+    <div class="gender-picker">
+      Gender:
+      <app-custom-radio [settings]="genderSettings"
+                        formControlName="gender"></app-custom-radio>
+    </div>
+
+    <div class="rating-input">
+      <label for="rating">Rating</label>
+      <input type="number" id="rating" formControlName="rating">
+    </div>
+
+    <div class="price-picker" formGroupName="price">
+      <span>Price</span>
+      <div class="price-input-container">
+        <input type="text" placeholder="from" formControlName="priceFrom">
+        <input type="text" placeholder="to" formControlName="priceTo">
+      </div>
+    </div>
+
+    <button (click)="applyFilter()">Apply</button>
+    <button (click)="clearFilter()">Clear</button>
+  </div>
+</form>

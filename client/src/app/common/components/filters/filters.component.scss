@@ -1,0 +1,25 @@
+.filters-container {
+  border: 1px solid green;
+
+  .expander {
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgba(0, 255, 0, 0.4);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .filters-content {
+    padding: 10px;
+  }
+
+  .gender-picker{
+    padding: 5px;
+    border: 1px solid green;
+  }
+
+}

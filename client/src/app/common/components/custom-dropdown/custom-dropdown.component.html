@@ -1,0 +1,20 @@
+<div class="dropdown-wrapper">
+  <div class="dropdown-header" (click)="toogleOpen()">
+    <div class="dropdown-label">
+      {{ currentOption?.title }}
+    </div>
+    <div>
+      <i class="material-icons arrow">
+        {{ isOpen ? "arrow_drop_up" : "arrow_drop_down" }}
+      </i>
+    </div>
+  </div>
+  <form *ngIf="isOpen" [formGroup]="dropdownControl" class="dropdown-body">
+    <div *ngFor="let option of options" class="dropdown-option">
+      <div class="dropdown-label"
+           (click)="updateSelectedOption(option)">
+        {{ option.title }}
+      </div>
+    </div>
+  </form>
+</div>

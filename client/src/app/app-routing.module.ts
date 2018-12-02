@@ -4,7 +4,7 @@ import { AuthGuard } from '@/common/guards/auth.guard';
 import { NonAuthGuard } from '@/common/guards/non-auth.guard';
 
 const routes: Routes = [
-  { path: '', canActivate: [AuthGuard], loadChildren: './pages/main/main.module#MainModule' },
+  { path: '', canActivate: [AuthGuard], loadChildren: './layouts/main/main.module#MainModule' },
   { path: 'login', canActivate: [NonAuthGuard], loadChildren: './pages/auth/auth.module#AuthModule' }
 ];
 
