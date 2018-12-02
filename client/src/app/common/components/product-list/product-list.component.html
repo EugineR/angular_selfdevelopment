@@ -1,3 +1,4 @@
+<app-filters (onApplyFilter)="applyFilter($event)" (onClearFilter)="clearFilter()"></app-filters>
 <div class="product-list">
   <div *ngFor="let product of products" class="product">
     <img [src]="product.image" alt="">

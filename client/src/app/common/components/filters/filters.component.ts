@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IRadioSettings } from 'Interfaces/custom-radio';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GENDERS } from 'Constants/index';
 import { IDropdownSettings } from 'Interfaces/custom-dropdown';
 import { ICategory } from 'Interfaces/category';
 import { CategoryService } from 'Services/category.service';
-import { ProductsService } from 'Services/products.service';
 
 @Component({
   selector: 'app-filters',
@@ -13,6 +12,9 @@ import { ProductsService } from 'Services/products.service';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
+  @Output() onApplyFilter: EventEmitter<any> = new EventEmitter();
+  @Output() onClearFilter: EventEmitter<any> = new EventEmitter();
+
   public isFilterExpanded: boolean = false;
   public genderSettings: IRadioSettings;
   public genderControl: FormControl;
@@ -25,9 +27,7 @@ export class FiltersComponent implements OnInit {
   public ratingControl: FormControl;
   public availabilityControl: FormControl;
 
-  constructor(private categoriesService: CategoryService,
-              private productsService: ProductsService) {
-  }
+  constructor(private categoriesService: CategoryService) {}
 
   // TODO: Move to initForm() method.
   ngOnInit() {
@@ -89,12 +89,11 @@ export class FiltersComponent implements OnInit {
     return { options };
   }
 
-  // TODO: implement logic for update products.
   public applyFilter() {
-    this.productsService.getFilteredProducts(this.filterGroup.value)
+    this.onApplyFilter.emit(this.filterGroup.value);
   }
-  // TODO: implement logic for clear filter and update products.
-  public clearFilter() {
 
+  public clearFilter() {
+    this.onClearFilter.emit();
   }
 }

@@ -12,7 +12,18 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productsService: ProductsService) { }
 
+  // TODO: Implement unsubscribe in onDestroy method.
   ngOnInit() {
+    this.productsService.getProducts()
+      .subscribe(products => this.products = products);
+  }
+
+  applyFilter(filter) {
+    this.productsService.getFilteredProducts(filter)
+      .subscribe(products => this.products = products);
+  }
+
+  clearFilter(): void {
     this.productsService.getProducts()
       .subscribe(products => this.products = products);
   }
